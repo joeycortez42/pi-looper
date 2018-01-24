@@ -1,0 +1,2 @@
+# The path to search for videos
+MEDIA_PATH=/home/pi/videos
