@@ -7,7 +7,12 @@ Infinitly loop through a directory of video files. DOES NOT support audio, becau
 ## Installing
 Download the install script:
 ```
-wget https://github.com/nokemono42/pi-looper/install.sh
+wget https://raw.githubusercontent.com/nokemono42/pi-looper/master/install.sh
+```
+
+Add permissions to execute:
+```
+chmod +x install.sh
 ```
 
 Run the installer:
@@ -16,7 +21,7 @@ sudo ./install.sh
 ```
 
 ## Configure
-Once *hello_video* is compiled and copied to */usr/local/bin*, *nano* will open the *config.txt* file so you can specify which folder the H264 videos will be located.
+Once *hello_video* is compiled and copied to */usr/local/bin*, *nano* will open the *config.txt* file so you can specify which folder the H264 videos will be located. Don't worry if the folder doesn't exist yet, you can create it once the installer is done.
 
 When done the location is set, press CTRL-O and ENTER to save and CTRL-X to exit.
 
@@ -40,26 +45,32 @@ for f in `ls | grep ".mp4$" | sed 's/\.mp4$//'`; do
 done
 ```
 
+## Transfering videos
+Unless you have a spare Linux machine that can mount the ExtFS partition on the SD Card it's better to just SSH into your pi. Copy the videos to ``/home/pi/videos`` or your desired location.
+
 ## Auto-run on startup
 Modify your local start up script:
 ```
 sudo nano /etc/rc.local
 ```
 
-Before ``exit0`` add:
+Before ``exit 0`` add:
 ```
-sh /home/pi/pi-looper/pi-looper.sh &
+sh /home/pi/pi-looper/run-looper.sh &
 ```
-When done, press CTRL-O and ENTER to save and CTRL-X to exit.
+When done, press CTRL-O and ENTER to save and CTRL-X to exit. Then reboot whenever you are ready.
 
+# Optional
 ## Hide startup text
-Hide most of the system start up messages:
+Hide most of the system boot messages:
 ```
 sudo nano /boot/cmdline.txt
 ```
+Replace ``console=tty1`` by ``console=tty3`` to redirect boot messages to the third console. Add ``quiet plymouth.enable=0 logo.nologo`` to disables boot messages, disables messages from Plymouth, and hide the Raspberry Pi logo ub top left corner. When done, press CTRL-O and ENTER to save and CTRL-X to exit.
 
-Disable splash screen on boot:
+
+Remove Rainbow Screen:
 ```
 sudo nano /boot/config.txt
 ```
-Add ``disable_splash=1`` at the end of the file.
+Add ``disable_splash=1`` at the end of the file. When done, press CTRL-O and ENTER to save and CTRL-X to exit.

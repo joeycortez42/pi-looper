@@ -29,7 +29,7 @@ trap control_c INT
 # Infinite loop
 while true; do
 	for f in `ls $MEDIA_PATH | grep ".h264$"`; do
-		echo "Playing $f"
+		#echo "Playing $f"
 		hello_video.bin $MEDIA_PATH/$f
 	done
 done

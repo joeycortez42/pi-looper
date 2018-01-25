@@ -8,8 +8,9 @@ fi
 
 echo "\nInstalling dependencies...\n"
 apt-get update
-apt-get -y install get
+apt-get -y install git
 
+echo "\nGetting files...\n"
 git clone https://github.com/nokemono42/pi-looper.git
 cd pi-looper
 
@@ -21,4 +22,7 @@ make install
 cd ../..
 rm -rf pi-hello-video
 
+echo "\nConfiguring...\n"
 nano config.txt
+
+echo "\nFinished!"
